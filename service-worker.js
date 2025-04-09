@@ -1,10 +1,10 @@
 const CACHE_NAME = 'minha-serie-cache-v1';
 const urlsToCache = [
   './',
-  './index.html',
-  './style.css',
-  './script.js',
-  './manifest.json',
+  './minha-serie/index.html',
+  './minha-serie/style.css',
+  './minha-serie/script.js',
+  './minha-serie/manifest.json',
   './icons/icon-192.png',
   './icons/icon-512.png',
   // Adicione aqui outros arquivos que você quer deixar offline

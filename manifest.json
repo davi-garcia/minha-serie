@@ -1,7 +1,7 @@
 {
   "name": "Minha Série",
   "short_name": "Série",
-  "start_url": "./index.html",
+  "start_url": "./minha-serie/index.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
