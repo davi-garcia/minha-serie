@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minha Série</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+    }
+    header {
+      background-color: #1e1e1e;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      background-color: #2c2c2c;
+    }
+    .tabs button {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .tabs button.active {
+      border-bottom: 2px solid #00bcd4;
+    }
+    .content {
+      padding: 20px;
+    }
+    .exercise {
+      background-color: #1e1e1e;
+      margin-bottom: 15px;
+      padding: 15px;
+      border-radius: 10px;
+    }
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .exercise-left {
+      flex: 1;
+    }
+    .info {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .info-btn {
+      background-color: #2c2c2c;
+      border: 1px solid #00bcd4;
+      color: #00bcd4;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+    .imagem-btn {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .imagem-btn:hover {
+      background-color: #555;
+    }
+    .imagem-btn i {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .imagem-btn span {
+      font-size: 12px;
+    }
+    .toggle {
+      appearance: none;
+      width: 40px;
+      height: 20px;
+      background: #444;
+      border-radius: 20px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+      margin-left: auto;
+    }
+    .toggle:checked {
+      background-color: #00bcd4;
+    }
+    .toggle::before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border-radius: 50%;
+      transition: .3s;
+    }
+    .toggle:checked::before {
+      transform: translateX(20px);
+    }
+    @media (max-width: 600px) {
+      .exercise-header {
+        flex-wrap: nowrap;
+        align-items: center;
+      }
+      .toggle {
+        margin-left: 0;
+      }
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+    }
+    .modal-content {
+      background-color: #1e1e1e;
+      margin: 10% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+    .close {
+      color: #aaa;
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .close:hover {
+      color: white;
+    }
+    #modalImageContainer {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+    }
+    #modalImageContainer img {
+      max-width: 45%;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <header>Minha Série</header>
+  <div class="tabs">
+    <button class="active" onclick="showTab('a')">Treino A</button>
+    <button onclick="showTab('b')">Treino B</button>
+    <button onclick="showTab('c')">Treino C</button>
+  </div>
+
+  <div class="content" id="tab-a">
+    <!-- Exercícios do Treino A -->
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">PUXADA COM TRIÂNGULO NO PULLEY</div>
+        <button class="imagem-btn" onclick="viewImage('PUXADA COM TRIÂNGULO NO PULLEY')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">3 Séries</span>
+        <span class="info-btn">12 Repetições</span>
+        <span class="info-btn">20 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">REMADA SENTADO NA MAQUINA COM TRIANGULO</div>
+        <button class="imagem-btn" onclick="viewImage('REMADA SENTADO NA MAQUINA COM TRIANGULO')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">3 Séries</span>
+        <span class="info-btn">12 Repetições</span>
+        <span class="info-btn">45 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">PUXADA ABERTA + SUPINADA NO PULLEY</div>
+        <button class="imagem-btn" onclick="viewImage('PUXADA ABERTA + SUPINADA NO PULLEY')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">3 Séries</span>
+        <span class="info-btn">12 + 12 Repetições</span>
+        <span class="info-btn">45 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">ROSCA BÍCEPS PEGADA NEUTRA C/ HALTER + ROSCA BÍCEPS NO CROSS BARRA MÉDIA</div>
+        <button class="imagem-btn" onclick="viewImage('ROSCA BÍCEPS PEGADA NEUTRA C/ HALTER + ROSCA BÍCEPS NO CROSS BARRA MÉDIA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">3 Séries</span>
+        <span class="info-btn">10 + Descansa 5SEG. + 10 C/ HALTER,  ROSCA BÍCEPS NO CROSS BARRA MÉDIA 10 (CURTAS ATÉ O MEIO) + 10 (COMPLETAS)</span>
+        <span class="info-btn">45 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">ROSCA BÍCEPS ALTERNADO</div>
+        <button class="imagem-btn" onclick="viewImage('ROSCA BÍCEPS ALTERNADO')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">3 Séries</span>
+        <span class="info-btn">12 Repetições</span>
+        <span class="info-btn">50 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">ABDOMINAL PARCIAL PERNAS ELEVADAS</div>
+        <button class="imagem-btn" onclick="viewImage('ABDOMINAL PARCIAL PERNAS ELEVADAS')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">4 Séries</span>
+        <span class="info-btn">20 Repetições</span>
+        <span class="info-btn">45 SEG.</span>
+      </div>
+    </div>
+
+    <div class="exercise">
+      <div class="exercise-header">
+        <div class="exercise-left">ABDOMINAL UNILATERAL</div>
+        <button class="imagem-btn" onclick="viewImage('ABDOMINAL UNILATERAL')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+        <input type="checkbox" class="toggle">
+      </div>
+      <div class="info">
+        <span class="info-btn">4 Séries</span>
+        <span class="info-btn">15 (DIR.) + 15 (ESQ.)</span>
+        <span class="info-btn">45 SEG.</span>
+      </div>
+    </div>
+  </div>
+
+<div class="content" id="tab-b" style="display:none;">
+  <!-- Exercícios do Treino B -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">SUPINO RETO COM HALTER</div>
+      <button class="imagem-btn" onclick="viewImage('SUPINO RETO COM HALTER')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">CRUCIFIXO PEITORAL NO BANCO INCLINADO</div>
+      <button class="imagem-btn" onclick="viewImage('CRUCIFIXO PEITORAL NO BANCO INCLINADO')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">30 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">FLEXÃO DE BRAÇOS FECHADA NO SOLO</div>
+      <button class="imagem-btn" onclick="viewImage('FLEXÃO DE BRAÇOS FECHADA NO SOLO')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">Máximo de Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">ABDUÇÃO DE OMBROS COM HALTER</div>
+      <button class="imagem-btn" onclick="viewImage('ABDUÇÃO DE OMBROS COM HALTER')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">35 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">DESENVOLVIMENTO COM HALTER</div>
+      <button class="imagem-btn" onclick="viewImage('DESENVOLVIMENTO COM HALTER')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">REMADA ALTA NO CROSS BARRA MÉDIA</div>
+      <button class="imagem-btn" onclick="viewImage('REMADA ALTA NO CROSS BARRA MÉDIA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">50 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">TRÍCEPS PULLEY BARRA MÉDIA NO CROSS</div>
+      <button class="imagem-btn" onclick="viewImage('TRÍCEPS PULLEY BARRA MÉDIA NO CROSS')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">40 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">TRÍCEPS TESTA BARRA MÉDIA NO CROSS</div>
+      <button class="imagem-btn" onclick="viewImage('TRÍCEPS TESTA BARRA MÉDIA NO CROSS')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">15 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">TRÍCEPS CORDA NO PULLEY</div>
+      <button class="imagem-btn" onclick="viewImage('TRÍCEPS CORDA NO PULLEY')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">15 Repetições</span>
+      <span class="info-btn">50 SEG.</span>
+    </div>
+  </div>
+</div>
+  
+
+<div class="content" id="tab-c" style="display:none;">
+  <!-- Exercícios do Treino C -->
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">LEG PRESS 45° PERNAS PARALELAS</div>
+      <button class="imagem-btn" onclick="viewImage('LEG PRESS 45° PERNAS PARALELAS')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">45 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">CADEIRA EXTENSORA</div>
+      <button class="imagem-btn" onclick="viewImage('CADEIRA EXTENSORA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">30 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">MESA FLEXORA</div>
+      <button class="imagem-btn" onclick="viewImage('MESA FLEXORA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">HACK MACHINE</div>
+      <button class="imagem-btn" onclick="viewImage('HACK MACHINE')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 Repetições</span>
+      <span class="info-btn">50 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">AFUNDO COM HALTER</div>
+      <button class="imagem-btn" onclick="viewImage('AFUNDO COM HALTER')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">12 (DIR.) + 12 (ESQ.)</span>
+      <span class="info-btn">30 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">CADEIRA ADUTORA</div>
+      <button class="imagem-btn" onclick="viewImage('CADEIRA ADUTORA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">15 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">FLEXÃO PLANTAR NA MAQUINA</div>
+      <button class="imagem-btn" onclick="viewImage('FLEXÃO PLANTAR NA MAQUINA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">3 Séries</span>
+      <span class="info-btn">20 Repetições</span>
+      <span class="info-btn">50 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">ABDOMINAL REMADOR</div>
+      <button class="imagem-btn" onclick="viewImage('ABDOMINAL REMADOR')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">20 Repetições</span>
+      <span class="info-btn">30 SEG.</span>
+    </div>
+  </div>
+
+  <div class="exercise">
+    <div class="exercise-header">
+      <div class="exercise-left">ABDOMINAL SUPRA</div>
+      <button class="imagem-btn" onclick="viewImage('ABDOMINAL SUPRA')"><i class="fas fa-photo-video"></i><span>Demonstração</span></button>
+      <input type="checkbox" class="toggle">
+    </div>
+    <div class="info">
+      <span class="info-btn">4 Séries</span>
+      <span class="info-btn">20 Repetições</span>
+      <span class="info-btn">60 SEG.</span>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <p id="modalTitle">Demonstração do Exercício</p>
+      <div id="modalImageContainer">
+        <img id="modalImage1" src="" alt="Imagem 1" />
+        <img id="modalImage2" src="" alt="Imagem 2" style="display: none;" />
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showTab(tab) {
+      document.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.content').forEach(el => el.style.display = 'none');
+      document.querySelector(`#tab-${tab}`).style.display = 'block';
+      document.querySelector(`.tabs button[onclick="showTab('${tab}')"]`).classList.add('active');
+    }
+
+    function viewImage(exercicio) {
+      const imageLinks = {
+        'PUXADA COM TRIÂNGULO NO PULLEY': ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/costas-puxada-para-frente-no-pulley-com-triangulo.gif'],
+        'REMADA SENTADO NA MAQUINA COM TRIANGULO': ['https://www.mundoboaforma.com.br/wp-content/uploads/2021/09/remada-sentado-com-cabos-e-triangulo-para-costas.gif'],
+        'PUXADA ABERTA + SUPINADA NO PULLEY': ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/costas-puxada-aberta-com-barra-no-pulley.gif', 'https://static.wixstatic.com/media/2edbed_d7bb6a7cc7a344d982599acbf8715348~mv2.gif/v1/fill/w_980,h_980,al_c,usm_0.66_1.00_0.01,pstr/2edbed_d7bb6a7cc7a344d982599acbf8715348~mv2.gif'],
+        'ROSCA BÍCEPS PEGADA NEUTRA C/ HALTER + ROSCA BÍCEPS NO CROSS BARRA MÉDIA': ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/rosca-biceps-martelo-com-halteres.gif', 'https://www.hipertrofia.org/blog/wp-content/uploads/2023/05/cable-curl.gif'],
+        'ROSCA BÍCEPS ALTERNADO': ['https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Rosca-Alternada-com-Halteres.gif'],
+        'ABDOMINAL PARCIAL PERNAS ELEVADAS': ['https://www.hipertrofia.org/blog/wp-content/uploads/2019/04/abdominal-invertido-com-pernas-na-vertical.gif'],
+        'ABDOMINAL UNILATERAL': ['https://www.hipertrofia.org/blog/wp-content/uploads/2024/09/abdominal-bicicleta.gif'],
+        'SUPINO RETO COM HALTER' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/supino-reto-com-halteres.gif'],
+        'CRUCIFIXO PEITORAL NO BANCO INCLINADO' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2020/06/dumbbell-incline-fly.gif'],
+        'FLEXÃO DE BRAÇOS FECHADA NO SOLO' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2021/04/flexao-de-bracos.gif'],
+        'ABDUÇÃO DE OMBROS COM HALTER' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/ombros-elevacao-lateral-de-ombros-com-halteres.gif'],
+        'DESENVOLVIMENTO COM HALTER' : ['https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Desenvolvimento-com-Halteres-H.gif'],
+        'REMADA ALTA NO CROSS BARRA MÉDIA' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/ombros-remada-alta-no-cabo.gif'],
+        'TRÍCEPS PULLEY BARRA MÉDIA NO CROSS' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2021/07/triceps-puxada-no-pulley.gif'],
+        'TRÍCEPS TESTA BARRA MÉDIA NO CROSS' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2025/01/triceps-frances-na-polia-alta-com-corda.gif'],
+        'TRÍCEPS CORDA NO PULLEY' : ['https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Triceps-Pulley-Corda.gif'],
+        'LEG PRESS 45° PERNAS PARALELAS' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2020/12/pernas-leg-press-45-tradicional.gif'],
+        'CADEIRA EXTENSORA' : ['https://karoldeliberato.com.br/wp-content/uploads/2023/04/image4-1.gif'],
+        'MESA FLEXORA' : ['https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Mesa-Flexora.gif'],
+        'HACK MACHINE' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/sled-hack-squat.gif'],
+        'AFUNDO COM HALTER' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2023/12/dumbbell-lunge.gif'],
+        'CADEIRA ADUTORA' : ['https://static.wixstatic.com/media/2edbed_6c5b7ab711274d76a40b00994d471d91~mv2.gif'],
+        'FLEXÃO PLANTAR NA MAQUINA' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2018/10/lever-seated-calf-raise-.gif'],
+        'ABDOMINAL REMADOR' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2017/09/abdominal-remador.gif'],
+        'ABDOMINAL SUPRA' : ['https://www.mundoboaforma.com.br/wp-content/uploads/2023/02/47271301-abdominal-supra.gif']
+
+      };
+
+      document.getElementById('modalTitle').textContent = `Demonstração: ${exercicio}`;
+
+      const imagens = imageLinks[exercicio] || [];
+      const img1 = document.getElementById('modalImage1');
+      const img2 = document.getElementById('modalImage2');
+
+      if (imagens.length === 1) {
+        img1.src = imagens[0];
+        img1.style.display = 'block';
+        img2.style.display = 'none';
+      } else if (imagens.length === 2) {
+        img1.src = imagens[0];
+        img2.src = imagens[1];
+        img1.style.display = 'block';
+        img2.style.display = 'block';
+      } else {
+        img1.src = '';
+        img2.src = '';
+        img1.style.display = 'none';
+        img2.style.display = 'none';
+      }
+
+      document.getElementById('imageModal').style.display = 'block';
+    }
+
+    function closeModal() {
+      document.getElementById('imageModal').style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById('imageModal');
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
