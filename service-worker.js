@@ -41,3 +41,18 @@ if ('serviceWorker' in navigator) {
           });
   });
 }
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+      caches.open('v1').then((cache) => {
+          return cache.addAll([
+              '/minha-serie/',
+              '/minha-serie/index.html',
+              '/minha-serie/styles.css',
+              '/minha-serie/script.js',
+              '/minha-serie/manifest.js',
+              '/minha-serie/service-worker.js'
+          ]);
+      })
+  );
+});
