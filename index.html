@@ -15,7 +15,10 @@
       font-family: Arial, sans-serif;
       background-color: #121212;
       color: #fff;
+      text-align: center;
+      margin-top: 50px;
     }
+
     header {
       background-color: #1e1e1e;
       padding: 15px;
@@ -174,6 +177,49 @@
       max-width: 45%;
       border-radius: 10px;
     }
+
+    #display {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+  .botoes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+  .cronometro-container {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 30px;
+      padding: 40px;
+      background-color: rgb(58, 57, 57);
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+  button {
+      font-size: 18px;
+      margin: 5px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+
+    }
+
+  button:hover {
+      background-color: #ddd;
+    }
+
+    button:nth-child(1) { background-color: #4CAF50; color: white; } /* Iniciar */
+    button:nth-child(2) { background-color: #f39c12; color: white; } /* Pausar */
+    button:nth-child(3) { background-color: #e74c3c; color: white; } /* Resetar */
+
+
   </style>
 </head>
 <body>
@@ -480,7 +526,7 @@
         'CADEIRA EXTENSORA' : ['https://karoldeliberato.com.br/wp-content/uploads/2023/04/image4-1.gif'],
         'MESA FLEXORA' : ['https://www.treinoemalta.com.br/wp-content/uploads/2023/07/Mesa-Flexora.gif'],
         'HACK MACHINE' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2023/03/sled-hack-squat.gif'],
-        'AFUNDO COM HALTER + CADEIRA ADUTORA' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2023/12/dumbbell-lunge.gif','https://static.wixstatic.com/media/2edbed_6c5b7ab711274d76a40b00994d471d91~mv2.gif'],
+        'AFUNDO COM HALTER + CADEIRA ADUTORA' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2023/12/dumbbell-lunge.gif','https://grandeatleta.com.br/wp-content/uploads/2018/05/cadeira-adutora-execucao.gif'],
         'FLEXÃO PLANTAR NA MAQUINA' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2018/10/lever-seated-calf-raise-.gif'],
         'ABDOMINAL REMADOR + ABDOMINAL SUPRA' : ['https://www.hipertrofia.org/blog/wp-content/uploads/2017/09/abdominal-remador.gif','https://www.mundoboaforma.com.br/wp-content/uploads/2023/02/47271301-abdominal-supra.gif']
 
@@ -521,7 +567,51 @@
         modal.style.display = "none";
       }
     }
+
+    let segundos = 0;
+    let timer = null;
+
+    function formatarTempo(segundos) {
+      const hrs = String(Math.floor(segundos / 3600)).padStart(2, '0');
+      const mins = String(Math.floor((segundos % 3600) / 60)).padStart(2, '0');
+      const secs = String(segundos % 60).padStart(2, '0');
+      return `${hrs}:${mins}:${secs}`;
+    }
+
+    function atualizarDisplay() {
+      document.getElementById("display").innerText = formatarTempo(segundos);
+    }
+
+    function start() {
+      if (timer !== null) return; // Já está rodando
+      timer = setInterval(() => {
+        segundos++;
+        atualizarDisplay();
+      }, 1000);
+    }
+
+    function pause() {
+      clearInterval(timer);
+      timer = null;
+    }
+
+    function reset() {
+      pause();
+      segundos = 0;
+      atualizarDisplay();
+    }
+
+
   </script>
+<div class="cronometro-container">
+  <div id="display">00:00:00</div>
+  <div class="botoes">
+    <button onclick="start()">Iniciar</button>
+    <button onclick="pause()">Pausar</button>
+    <button onclick="reset()">Resetar</button>
+  </div>  
+</div>
+
 
 <footer style="text-align: center; padding: 20px; background-color: #222; color: white;">
   <p style="margin-top: 10px;">Série Feito com ❤️ por @tataa.personal</p>
